@@ -2,8 +2,8 @@ import random
 
 from tkinter import *
 w = h = 600
-x_current = y_current = 0
-x_prev = y_prev = 0
+x_current = y_current = x_prev = y_prev = 0
+
 
 def print_dot():
     global x_current, y_current, x_prev, y_prev
