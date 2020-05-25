@@ -4,6 +4,7 @@ from tkinter import *
 w = h = 600
 x_current, y_current = 178, 280
 
+
 def print_dot():
     global x_current, y_current
     point = random.randint(0, 2)
