@@ -7,6 +7,6 @@ l = Label(root, bg='black', fg='white', width=20)
 
 canvas = Canvas()
 canvas.create_line(10,10,30,30)
-
+canvas.pack()
 
 root.mainloop()
