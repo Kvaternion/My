@@ -1,0 +1,89 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="user-list m-5">
+      <ul class="list-group">
+      </ul>
+    </div>
+    <div class="form-container m-3 p-3">
+      <form name="user">
+        <div class="form-group">
+          <label for="InputName">Name</label>
+          <input class="form-control" id="InputName" placeholder="Name">
+        </div>
+
+        <div class="form-group">
+          <label for="InputEmail">Email address</label>
+          <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="InputPhone">Phone</label>
+          <input type="tel" class="form-control" id="InputPhone" placeholder="Phone">
+        </div>
+
+        <div class="form-group">
+          <label for="InputWebSite">WebSite</label>
+          <input class="form-control" id="InputWebSite" placeholder="WebSite">
+        </div>
+
+        <button type="submit" name="submit" class="btn btn-primary">Добавить пользователя</button>
+      </form>
+    </div>
+  </body>
+<script>
+  const apiURL = 'https://jsonplaceholder.typicode.com/users'
+  const userList = document.querySelector('.user-list')
+  const form = document.forms['user']
+
+  function addUserToForm(user) {
+    let userRow = document.createElement('li')
+    userRow.classList.add('list-group-item')
+    userRow.textContent = `Name: ${user.name}. E-mail: ${user.email}`
+    userList.appendChild(userRow)
+  }
+
+  form.elements['submit'].addEventListener('click', (event) => {
+    // когда повесил Listener на событие submit формы - Антивирус удалил мой файл как троян О_о
+    event.preventDefault()
+    const user = {
+      name: form.elements['InputName'].value,
+      email: form.elements['InputEmail'].value,
+      phone: form.elements['InputPhone'].value,
+      website: form.elements['InputWebSite'].value
+    }
+
+    postUser(JSON.stringify(user), (response) => {
+      console.log(response)
+      addUserToForm(response)
+    })
+    // form.reset()
+  })
+
+  function postUser(user, cb) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', apiURL)
+    xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.addEventListener('load', () => {
+      const resp = (JSON.parse(xhr.responseText))
+      cb(resp)
+    })
+    xhr.send(user)
+  }
+
+
+</script>
+
+</html>

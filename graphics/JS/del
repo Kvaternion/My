@@ -1,0 +1,50 @@
+const numModule = (function (){
+  let num = 0;
+
+  function setNumber(val = 0) {
+    num = Number(val);
+    return this;
+  }
+
+  function plus(val) {
+    num += Number(val);
+    return this;
+  }
+
+  function minus(val) {
+    num -= Number(val);
+    return this;
+  }
+
+  function divide(val) {
+    num /= Number(val);
+    return this;
+  }
+
+  function pow(ex = 2) {
+    num = Math.pow(num, ex);
+    return this;
+  }
+
+  function getNumber() {
+    return  Number(num.toFixed(2)) || 0;
+  }
+
+  return {
+    setNumber,
+    plus,
+    minus,
+    divide,
+    pow,
+    getNumber
+  }
+}());
+
+console.log(
+  numModule
+    .setNumber(3)
+    .pow(2)
+    .getNumber()
+)
+
+// document.body.innerHTML = new_str
